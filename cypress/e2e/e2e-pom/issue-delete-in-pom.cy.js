@@ -13,13 +13,36 @@ describe('Issue delete', () => {
   });
 
   //issue title, that we are testing with, saved into variable
-  const issueTitle = 'This is an issue of type: Task.';
-
-  it('Should delete issue successfully', () => {
-    //add steps to delete issue
-  });
+  const issueTitle = 'Try leaving a comment on this issue.';
 
   it('Should cancel deletion process successfully', () => {
-    //add steps to start deletion proces but cancel it
+    // Assert that the issue exists on the board
+    IssueModal.ensureIssueIsVisibleOnBoard(issueTitle)
+    
+    //Click trash icon, assert confirmation popup window is visible
+    IssueModal.clickDeleteButton()
+
+    //Click cancel button, assert the confirmation window closes and relocates you back to the issue
+    IssueModal.cancelDeletion()
+
+    //Close the issue
+    IssueModal.closeDetailModal()
+
+    //Assert that the issue exists on the board
+    IssueModal.ensureIssueIsVisibleOnBoard(issueTitle)
   });
+
+  it('Should delete issue successfully', () => {
+    //Assert that the issue exists on the board
+    IssueModal.ensureIssueIsVisibleOnBoard(issueTitle);
+    
+    //Click trash icon, assert confirmation popup window is visible
+    IssueModal.clickDeleteButton();
+    
+    //Confirm and delete issue, assert that the issue has been deleted and no longer exist on the board
+    IssueModal.confirmDeletion(issueTitle);
+
+  });
+
+  
 });
